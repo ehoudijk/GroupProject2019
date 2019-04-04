@@ -2,3 +2,6 @@
 .settings/
 bin/
 CSV/
+.idea/
+*.iml
+target/

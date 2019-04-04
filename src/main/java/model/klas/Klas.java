@@ -1,5 +1,6 @@
 package model.klas;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

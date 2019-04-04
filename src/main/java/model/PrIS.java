@@ -123,10 +123,10 @@ public class PrIS {
 	}
 
 	private void vulDocenten(ArrayList<Docent> pDocenten) {
-		String csvFile = "././CSV/docenten.csv";
+		String csvFile = "./CSV/docenten.csv";
 		BufferedReader br = null;
 		String line = "";
-		String cvsSplitBy = ",";
+		String cvsSplitBy = ";";
 
 		try {
 
@@ -182,10 +182,10 @@ public class PrIS {
 		Student dummyStudent = new Student("Stu", "de", "Student", "geheim", "test@student.hu.nl", 0);
 		for (Klas k : pKlassen) {
 			// per klas
-			String csvFile = "././CSV/" + k.getNaam() + ".csv";
+			String csvFile = "./CSV/" + k.getNaam() + ".csv";
 			BufferedReader br = null;
 			String line = "";
-			String cvsSplitBy = ",";
+			String cvsSplitBy = ";";
 
 			try {
 
