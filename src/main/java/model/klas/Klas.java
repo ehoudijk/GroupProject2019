@@ -40,4 +40,11 @@ public class Klas {
 		}
 	}
 
+	public boolean isStudentInKlas(int id) {
+		for (Student student : deStudenten) {
+			if(student.getStudentNummer() == id) return true;
+		}
+		return false;
+	}
+
 }

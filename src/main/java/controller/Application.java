@@ -28,14 +28,16 @@ public class Application {
 	 * 
 	 */
 	public static void main(String[] args) {
-		JSONFileServer server = new JSONFileServer(new File("webapp/app"), 8888);
+		JSONFileServer server = new JSONFileServer(new File("webapp/app"), 8886);
 
 		PrIS infoSysteem = new PrIS();
 
 		SysteemDatumController systeemDatumController = new SysteemDatumController(infoSysteem);
 		LoginController loginController = new LoginController(infoSysteem);
 		MedestudentenController medestudentenController = new MedestudentenController(infoSysteem);
+		RoosterController roosterController = new RoosterController(infoSysteem);
 
+		server.registerHandler("/student/rooster/ophalen", roosterController);
 		server.registerHandler("/systeemdatum/lesinfo", systeemDatumController);
 
 		server.registerHandler("/login", loginController);

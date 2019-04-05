@@ -7,16 +7,22 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 import model.klas.Klas;
 import model.persoon.Docent;
 import model.persoon.Student;
+import model.persoon.Rooster;
 
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
 	private ArrayList<Klas> deKlassen;
+	private ArrayList<Rooster> deRoosters;
 
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data moet nog
@@ -43,11 +49,16 @@ public class PrIS {
 	public PrIS() {
 		deDocenten = new ArrayList<Docent>();
 		deStudenten = new ArrayList<Student>();
-		deKlassen = new ArrayList<Klas>(); // Inladen klassen
-		vulKlassen(deKlassen); // Inladen studenten in klassen
+		deKlassen = new ArrayList<Klas>();
+		deRoosters = new ArrayList<Rooster>();
+		// Inladen klassen
+		vulKlassen(deKlassen);
+		// Inladen studenten in klassen
 		vulStudenten(deStudenten, deKlassen);
 		// Inladen docenten
 		vulDocenten(deDocenten);
+		// Inladen rooster
+		vulRooster(deRoosters);
 
 	} // Einde Pris constructor
 
@@ -230,6 +241,57 @@ public class PrIS {
 		// mocht de lijst met studenten nu nog leeg zijn
 		if (pStudenten.isEmpty())
 			pStudenten.add(dummyStudent);
+	}
+
+	private void vulRooster(ArrayList<Rooster> pRooster) {
+		String csvFile = "C:\\Users\\ehoud\\Dropbox\\Studie\\Vakken\\Blok C\\Group Project SIE\\ProjectPrisV1A4\\ProjectPrISV1A4\\Applicatie concept\\src\\CSV\\rooster.csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = "\",\"";
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			boolean firstline = true;
+			while ((line = br.readLine()) != null) {
+				// line = line.replace(",,", ", ,");
+				// use comma as separator
+				if (firstline) {
+					firstline = false;
+				} else {
+					String[] element = line.split(cvsSplitBy);
+					String naam = element[0];
+					String startdatum = element[4];
+					String starttijd = element[5];
+					String eindtijd = element[8];
+					String docenten = element[11];
+					String groepen = element[13];
+					List<Klas> klassen = findKlasByIDs(groepen);
+					pRooster.add(new Rooster(naam, startdatum, starttijd, eindtijd, docenten, groepen, klassen));
+					Rooster.setRoosters(pRooster);
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private List<Klas> findKlasByIDs(String groepen) {
+		List<String> mijnGroepen = Arrays.asList(groepen.split(", "));
+		return deKlassen.stream()
+				.filter(klas -> mijnGroepen.contains(klas.getKlasCode()))
+				.collect(Collectors.toList());
 	}
 
 }

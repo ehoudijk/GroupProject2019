@@ -33,10 +33,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       app-drawer {                                                   /*toegevoegd tov psk */
-         --app-drawer-content-container: {
+        --app-drawer-content-container: {
           background-color: var(--app-lightgray);
-         }
-       }
+        }
+      }
       .toolbar {
         background: var(--app-blue);
         color: white;
@@ -54,14 +54,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0 20px;
         font-size: 14px;				                        /*toegevoegd tov psk */
         font-weight: 400;                                       /*toegevoegd tov psk */
-       }
+      }
 
-       .drawer-list a {
-         display: block;
-         padding: 0 16px;
-         text-decoration: none;
-         color: black;
-         line-height: 40px;
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: black;
+        line-height: 40px;
       }
 
       .drawer-list a.iron-selected {
@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list a[verborgen] {               /* toegevoegd tov PSK               */
-                        				        /* als verborgen true is dan ..     */
+        /* als verborgen true is dan ..     */
         display: none;							/* onzichtbaar maken                */
       }
 
@@ -92,45 +92,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           middels: document.querySelector('my-app').$.approuter.data={page: "xx"}
     -->
     <app-route id="approuter"
-      route="{{_ar_route}}"
-      pattern="/:page"
-      data="{{_ar_route_data}}"
-      tail="{{_ar_subroute}}">
+               route="{{_ar_route}}"
+               pattern="/:page"
+               data="{{_ar_route_data}}"
+               tail="{{_ar_subroute}}">
     </app-route>
     <!--  Matches everything starting with /xxx/
           and stores it in _ar_subroute_data.subpage
           geen id nodig -->
     <app-route
-      route="{{_ar_subroute}}"
-      pattern="/:subpage"
-      data="{{_ar_subroute_data}}"
-      tail="{{_ar_subsubroute}}">
+            route="{{_ar_subroute}}"
+            pattern="/:subpage"
+            data="{{_ar_subroute_data}}"
+            tail="{{_ar_subsubroute}}">
     </app-route>
     <!--  Matches everything starting with /xxx/yyy/
           and stores it in _ar_subsubroute_data.subsubpage
           geen id nodig -->
     <app-route
-      route="{{_ar_subsubroute}}"
-      pattern="/:subsubpage"
-      data="{{_ar_subsubroute_data}}">
+            route="{{_ar_subsubroute}}"
+            pattern="/:subsubpage"
+            data="{{_ar_subsubroute_data}}">
     </app-route>
 
 
     <!-- Main Toolbar -->
     <app-drawer-layout>
- 	  <app-drawer slot="drawer">
- 	    <!--  _ar_page bepaald welk menu geselecteerd is.
- 			  het menu dat de gebruiker klikt veroorzaakt een andere url
- 			  deze url wordt door <app-location> en <app-route> omgezet in variabelen
- 			  _ar_route , _ar_route_data en _ar_subroute
- 			  let op: _ar_page wordt niet door de selectie gewijzigd maar
- 					  vanuit de URL via een observer functie
- 					  er is dus een sterke gelijkenis tussen _ar_page en de URL
- 					  met name URL "xx/yy"  wordt _ar_page "xx_yy" maar ook
- 						       URL "/"      wordt _ar_page "home" en
- 						       overige URL  wordt _ar_page "view404".
- 		-->
- 		<!-- blue (empty) toolbar in menu -->
+      <app-drawer slot="drawer">
+        <!--  _ar_page bepaald welk menu geselecteerd is.
+              het menu dat de gebruiker klikt veroorzaakt een andere url
+              deze url wordt door <app-location> en <app-route> omgezet in variabelen
+              _ar_route , _ar_route_data en _ar_subroute
+              let op: _ar_page wordt niet door de selectie gewijzigd maar
+                      vanuit de URL via een observer functie
+                      er is dus een sterke gelijkenis tussen _ar_page en de URL
+                      met name URL "xx/yy"  wordt _ar_page "xx_yy" maar ook
+                               URL "/"      wordt _ar_page "home" en
+                               overige URL  wordt _ar_page "view404".
+        -->
+        <!-- blue (empty) toolbar in menu -->
         <app-toolbar class="toolbar">
           <img id="toolbarlogo" src="../../images/hu_logo.png" alt="HU" />
         </app-toolbar>
@@ -140,10 +140,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Home</span>
           </a>
 
+
+
           <!-- altijd beschikbaar -->
           <a name="systeem_instellen_systeemdatum" href$="[[_c_baseURL]]systeem_instellen_systeemdatum" >
             <iron-icon icon="icons:today"></iron-icon>
             <span>(test) Instellen systeemdatum</span>
+          </a>
+
+          <a name="rooster_inzien" href$="[[_c_baseURL]]rooster_inzien">
+            <iron-icon icon="icons:today"></iron-icon>
+            <span>Rooster inzien</span>
           </a>
 
           <a name="login" href$="[[_c_baseURL]]login"  verborgen$="[[!_are_strings_equal(_rol, 'undefined')]]">
@@ -156,13 +163,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Uitloggen</span>
           </a>
 
+
+
           <!-- beschikbaar voor docent -->
 
           <!-- beschikbaar voor student -->
-          <a name="student_medestudenten" href$="[[_c_baseURL]]student_medestudenten"  verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
+          <a name="student_medestudenten" href$="[[_c_baseURL]]student_medestudenten" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
             <iron-icon icon="social:group"></iron-icon>
             <span>Toon medestudenten</span>
           </a>
+
+          <a name="absent_melden" href$="[[_c_baseURL]]absent_melden" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
+            <iron-icon icon="icons:thumb-down"></iron-icon>
+            <span>Absent Melden</span>
+          </a>
+
+          <a name="beter_melden" href$="[[_c_baseURL]]beter_melden" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
+            <iron-icon icon="icons:thumb-up"></iron-icon>
+            <span>Beter Melden</span>
+          </a>
+
+
+
 
         </iron-selector>
       </app-drawer>
@@ -175,10 +197,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-toolbar>
 
       <iron-pages
-        attr-for-selected="page-name"
-        selected="[[_ar_page]]"
-        fallback-selection="view404"
-        role="main">
+              attr-for-selected="page-name"
+              selected="[[_ar_page]]"
+              fallback-selection="view404"
+              role="main">
         <!-- in iron-pages kun je niet handmatig een element selecteren.
        	     Het is dus zinloos om te coderen selected=_ar_page met {{}}
        	     Wel wordt _ar_selected_object gevuld met de sectie die hoort bij _ar_page
@@ -191,84 +213,109 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- element$="none" of weglaten van element$ geeft beide aan dat er geen polymerElement gebruikt zal gaan worden -->
         <section page-name="home" title="HOME" element$="none">
           <paper-material elevation="1">
-              <p>Demo app gebaseerd op Polymer.</p>
-              <p>Deze app past nadat je bent ingelogged het menu aan, aan de rol die gekoppeld is aan de ingeloggede user.</p>
+            <p>Demo app gebaseerd op Polymer.</p>
+            <p>Deze app past nadat je bent ingelogged het menu aan, aan de rol die gekoppeld is aan de ingeloggede user.</p>
           </paper-material>
         </section>
 
         <section page-name="systeem_instellen_systeemdatum"
                  title="INSTELLEN SYSTEEMDATUM"
-              	 element$="my-systeemdatum">
-            <paper-material elevation="1">
-              <!--
+                 element$="my-systeemdatum">
+          <paper-material elevation="1">
+            <!--
+              c_visible="true" als deze section geselecteerd is.
+              LET OP: boolean values moeten als string doorgegeven worden,
+                      vandaar de quotes rondom de function aanroep.
+                      De aanwezige literal waarde wordt met enkele quotes doorgegeven
+            -->
+            <my-systeemdatum
+                    systeemdatumlokaal="{{_systeemdatumlokaal}}"
+                    systeemdatumstandaard="{{_systeemdatumstandaard}}"
+                    c_visible="[[_are_strings_equal(_ar_page, 'systeem_instellen_systeemdatum')]]">
+            </my-systeemdatum>
+          </paper-material>
+        </section>
+
+
+        <section page-name="rooster_inzien"
+                 title="ROOSTER INZIEN"
+                 element$="my-rooster">
+          <paper-material elevation="1">
+            <my-rooster></my-rooster>
+          </paper-material>
+        </section>
+
+        <section page-name="absent_melden"
+                 title="ABSENT MELDEN"
+                 element$="my-absentie">
+          <paper-material elevation="1">
+            <my-absentie></my-absentie>
+          </paper-material>
+        </section>
+
+        <section page-name="beter_melden"
+                 title="BETER MELDEN"
+                 element$="my-beter">
+          <paper-material elevation="1">
+            <my-beter></my-beter>
+          </paper-material>
+        </section>
+
+        <section page-name="login"
+                 title="LOGIN"
+                 element$="my-login">
+          <paper-material elevation="1" style="max-width: 380px;">'
+            <my-login username="{{_username}}" rol="{{_rol}}" ></my-login>
+          </paper-material>
+        </section>
+
+        <section page-name="logout"
+                 title="UITLOGGEN"
+                 element="my-logout">
+          <paper-material elevation="1">
+            <my-logout rol="{{_rol}}"></my-logout>
+          </paper-material>
+        </section>
+
+        <!-- sections voor docent -->
+
+        <!-- sections voor student -->
+        <section  page-name="student_medestudenten"
+                  title="OVERZICHT MEDESTUDENTEN"
+                  element$="my-medestudenten">
+          <paper-material elevation="1">
+            <!--
                 c_visible="true" als deze section geselecteerd is.
                 LET OP: boolean values moeten als string doorgegeven worden,
                         vandaar de quotes rondom de function aanroep.
                         De aanwezige literal waarde wordt met enkele quotes doorgegeven
-              -->
-              <my-systeemdatum
-                systeemdatumlokaal="{{_systeemdatumlokaal}}"
-                systeemdatumstandaard="{{_systeemdatumstandaard}}"
-                c_visible="[[_are_strings_equal(_ar_page, 'systeem_instellen_systeemdatum')]]">
-              </my-systeemdatum>
-            </paper-material>
-          </section>
+            -->
+            <my-medestudenten
+                    c_visible="[[_are_strings_equal(_ar_page, 'student_medestudenten')]]"
+                    c_rol="[[_rol]]"
+                    c_username="[[_username]]">
+            </my-medestudenten>
+          </paper-material>
+        </section>
 
-          <section page-name="login"
-              	   title="LOGIN"
-              	   element$="my-login">
-            <paper-material elevation="1" style="max-width: 380px;">'
-              <my-login username="{{_username}}" rol="{{_rol}}" ></my-login>
-            </paper-material>
-          </section>
+        <section page-name="student_details" title="STUDENT DETAILS">
+          <paper-material elevation="1">
+            <h2 class="page-title">Student: [[_ar_subsubroute_data.subsubpage]]</h2>
+            <div>This is [[_ar_subsubroute_data.subsubpage]]'s section</div>
+          </paper-material>
+        </section>
 
-          <section page-name="logout"
-                   title="UITLOGGEN"
-                   element="my-logout">
-            <paper-material elevation="1">
-              <my-logout rol="{{_rol}}"></my-logout>
-            </paper-material>
-          </section>
-
-<!-- sections voor docent -->
-
- <!-- sections voor student -->
-          <section  page-name="student_medestudenten"
-                    title="OVERZICHT MEDESTUDENTEN"
-                    element$="my-medestudenten">
-            <paper-material elevation="1">
-              <!--
-                  c_visible="true" als deze section geselecteerd is.
-                  LET OP: boolean values moeten als string doorgegeven worden,
-                          vandaar de quotes rondom de function aanroep.
-                          De aanwezige literal waarde wordt met enkele quotes doorgegeven
-              -->
-              <my-medestudenten
-                c_visible="[[_are_strings_equal(_ar_page, 'student_medestudenten')]]"
-                c_rol="[[_rol]]"
-                c_username="[[_username]]">
-              </my-medestudenten>
-            </paper-material>
-          </section>
-
-          <section page-name="student_details" title="STUDENT DETAILS">
-            <paper-material elevation="1">
-              <h2 class="page-title">Student: [[_ar_subsubroute_data.subsubpage]]</h2>
-              <div>This is [[_ar_subsubroute_data.subsubpage]]'s section</div>
-            </paper-material>
-          </section>
-
-          <section page-name="view404"
-                    title="PAGE NOT FOUND"
-                    element$="my-view404">
-            <paper-material elevation="1">
-              <my-view404></my-view404>
-            </paper-material>
-          </section>
-        </iron-pages>
+        <section page-name="view404"
+                 title="PAGE NOT FOUND"
+                 element$="my-view404">
+          <paper-material elevation="1">
+            <my-view404></my-view404>
+          </paper-material>
+        </section>
+      </iron-pages>
     </app-drawer-layout>
 
-   </template>
+  </template>
   <script>
     (function() {
       'use strict';
@@ -317,9 +364,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object,               //route-object dat niet matched vanuit <_ar_subroute> dwz alles na /xxx/yyy/ in de url
           },
           _ar_subsubroute_data: {
-              type: Object,             //{subsubpage: "zzz"} dat matched na /xxx/yyy/ in de url
+            type: Object,             //{subsubpage: "zzz"} dat matched na /xxx/yyy/ in de url
           },
-         _systeemdatumlokaal: {		//used as global in many element
+          _systeemdatumlokaal: {		//used as global in many element
             type: String,
           },
           _systeemdatumstandaard: {
@@ -340,13 +387,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           //  this.$.drawer.close();
           //}
           if ((pNewPage == "") || (pNewPage == undefined)){
-              this._ar_page = "home";
-            } else {
-              this._ar_page = pNewPage;
-            }
+            this._ar_page = "home";
+          } else {
+            this._ar_page = pNewPage;
+          }
         },
 
-         _ar_selected_object_changed: function(pSelectedObject) {
+        _ar_selected_object_changed: function(pSelectedObject) {
           // Load page import on demand. Show 404 page if fails
           if (pSelectedObject == undefined) {
             //no element to load
@@ -354,14 +401,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           var lAttributeNode = pSelectedObject.attributes["element$"];
           if (lAttributeNode== undefined) {
-              //no element to load
-              return
+            //no element to load
+            return
           }
           var lElementName = lAttributeNode.nodeValue;
           if (lElementName== "none") {
-              //no element to load
-              return
-         }
+            //no element to load
+            return
+          }
           var resolvedPageUrl = this.resolveUrl("../" + lElementName  + '/' + lElementName + '.html');
           this.importHref(resolvedPageUrl, null, this._ar_showPage404, true);
         },
@@ -372,7 +419,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _ar_subroute_data_subpage_changed(pNewSubpage) {
           if ((pNewSubpage == "") || (pNewSubpage == undefined)){
-        	 // nothing to do
+            // nothing to do
           } else {
             this._ar_page =this._ar_route_data.page + "_" + pNewSubpage;
           }
@@ -382,27 +429,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           die true is als de twee strings gelijk zijn.
           wordt gebruikt in index.html
         */
-	    _are_strings_equal: function(p_str1, p_str2) {
-	      //console.log("_are_strings_equal: " + p_str1 + " met: " + p_str2);
-	      return (p_str1==p_str2);
-	    },
-
-	    ready: function()  {
-	      /* deze functie wordt eenamalig aangeroepen wanneer de applicatie start
-		  /*  _systeemdatumlokaal variabele wordt gebruikt om de huidige systeem datum (of de test systeemdatum)
-		       in de pagina kop te vermelden
-		  */
-		  /* gebruikt het Javascript date object om op basis van een standaarddatumstring
-		     een object te maken en via dit een lokaledatumstring te maken */
-		  var eenDatumObject             = new Date(); // is vandaag
-		  this._systeemdatumstandaard    = this.date_to_standaard_string(eenDatumObject);
-		  this._systeemdatumlokaal       = eenDatumObject.toLocaleDateString();
-		  console.log("application ready to run");
+        _are_strings_equal: function(p_str1, p_str2) {
+          //console.log("_are_strings_equal: " + p_str1 + " met: " + p_str2);
+          return (p_str1==p_str2);
         },
 
-         // convert a JSDate-object to standaard format (=YYYY-MM-DD)
-	    date_to_standaard_string: function(p_JSDate) {
-	      var lJaar = p_JSDate.getFullYear();
+        ready: function()  {
+          /* deze functie wordt eenamalig aangeroepen wanneer de applicatie start
+          /*  _systeemdatumlokaal variabele wordt gebruikt om de huidige systeem datum (of de test systeemdatum)
+               in de pagina kop te vermelden
+          */
+          /* gebruikt het Javascript date object om op basis van een standaarddatumstring
+             een object te maken en via dit een lokaledatumstring te maken */
+          var eenDatumObject             = new Date(); // is vandaag
+          this._systeemdatumstandaard    = this.date_to_standaard_string(eenDatumObject);
+          this._systeemdatumlokaal       = eenDatumObject.toLocaleDateString();
+          console.log("application ready to run");
+        },
+
+        // convert a JSDate-object to standaard format (=YYYY-MM-DD)
+        date_to_standaard_string: function(p_JSDate) {
+          var lJaar = p_JSDate.getFullYear();
           var lMaand= p_JSDate.getMonth() + 1;
           var lDag = p_JSDate.getDate();
 
@@ -415,23 +462,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             lDagStr = "0"+ lDagStr;
           }
           var lString =
-            lJaar.toString() + "-" +
-            lMaandStr + "-" +
-            lDagStr;
+                  lJaar.toString() + "-" +
+                  lMaandStr + "-" +
+                  lDagStr;
           return lString;
         },
 
-	    // convert a YY-MM-DD string to local format (dutch lokaal: DD-MM-YYYY)
-	    standaarddatumstring_to_lokaledatumstring: function(p_standaarddatumstring) {
-	      var lokaledatumstring = "";
-	      if (p_standaarddatumstring !="") {
-	        /* gebruikt het Javascript date object om op basis van een standaarddatumstring
-	           een object te maken en via dit een lokaledatumstring te maken */
-	        var eenDatumObject = new Date(p_standaarddatumstring);
-	        lokaledatumstring = eenDatumObject.toLocaleDateString();
-	        /*deze conversie werk zowel voor nederlandse windows als internationale windows. */
-	      }
-	      return lokaledatumstring;
+        // convert a YY-MM-DD string to local format (dutch lokaal: DD-MM-YYYY)
+        standaarddatumstring_to_lokaledatumstring: function(p_standaarddatumstring) {
+          var lokaledatumstring = "";
+          if (p_standaarddatumstring !="") {
+            /* gebruikt het Javascript date object om op basis van een standaarddatumstring
+               een object te maken en via dit een lokaledatumstring te maken */
+            var eenDatumObject = new Date(p_standaarddatumstring);
+            lokaledatumstring = eenDatumObject.toLocaleDateString();
+            /*deze conversie werk zowel voor nederlandse windows als internationale windows. */
+          }
+          return lokaledatumstring;
         },
 
       });
