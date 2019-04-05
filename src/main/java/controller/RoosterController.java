@@ -26,14 +26,14 @@ public class RoosterController implements Handler {
 
         // roosters filteren op studentid
         List<Rooster> myRoosters = Rooster.getRoosters();
-        List<Rooster> goodRoosters = new ArrayList<>();
+        List<String> goodRoosters = new ArrayList<String>();
         for (Rooster myRooster : myRoosters) {
             System.out.println("checking klas...");
             if(myRooster.getKlas() != null) System.out.println("rooster with klas found!");
             if (myRooster.getKlas() != null) {
                 for (Klas kla : myRooster.getKlas()) {
                     if(kla.isStudentInKlas(id)) {
-                        goodRoosters.add(myRooster);
+                        goodRoosters.add(myRooster.getNaam());
                     }
                 }
             }
@@ -45,8 +45,7 @@ public class RoosterController implements Handler {
         conversation.sendJSONMessage(json);
     }
 
-    public String roosterToJson(List<Rooster> pRooster) {
-        pRooster.remove(5);
+    public String roosterToJson(List<String> pRooster) {
         return new Gson().toJson(pRooster);
     }
 

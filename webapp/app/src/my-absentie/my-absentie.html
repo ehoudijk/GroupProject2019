@@ -1,158 +1,158 @@
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/scheduler-component/scheduler-component.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<!--<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">-->
+<!--<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">-->
+<!--<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">-->
+<!--<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">-->
+<!--<link rel="import" href="../../bower_components/polymer/polymer.html">-->
+<!--<link rel="import" href="../../bower_components/paper-button/paper-button.html">-->
+<!--<link rel="import" href="../../bower_components/paper-input/paper-input.html">-->
+<!--<link rel="import" href="../../bower_components/paper-styles/typography.html">-->
+<!--<link rel="import" href="../../bower_components/scheduler-component/scheduler-component.html">-->
+<!--<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">-->
+<!--<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">-->
+<!--<link rel="import" href="../../bower_components/paper-item/paper-item.html">-->
+<!--<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">-->
 
 
-<dom-module id="my-absentie">
+<!--<dom-module id="my-absentie">-->
 
-    <template>
-        <style>
-            :host {
-                display: block;
-            }
+    <!--<template>-->
+        <!--<style>-->
+            <!--:host {-->
+                <!--display: block;-->
+            <!--}-->
 
-            .my-title {
-                font-size: 20px;
-                color: blue;
-                border-bottom: 1px solid red; /*#1a9fd9; */ /* a red line */
-                padding-bottom: 2px; /* space above the border line */
-            }
+            <!--.my-title {-->
+                <!--font-size: 20px;-->
+                <!--color: blue;-->
+                <!--border-bottom: 1px solid red; /*#1a9fd9; */ /* a red line */-->
+                <!--padding-bottom: 2px; /* space above the border line */-->
+            <!--}-->
 
-            .my-detail {
-                font-size: 12px;
-                margin-bottom: 12px; /* space after detail lines */
-            }
+            <!--.my-detail {-->
+                <!--font-size: 12px;-->
+                <!--margin-bottom: 12px; /* space after detail lines */-->
+            <!--}-->
 
-            .my-input {
-                max-width: 150px;
-            }
+            <!--.my-input {-->
+                <!--max-width: 150px;-->
+            <!--}-->
 
-            .my-line {
-                display: flex;
-                allign-items: left;
-            }
+            <!--.my-line {-->
+                <!--display: flex;-->
+                <!--allign-items: left;-->
+            <!--}-->
 
-            .my-label {
-                width: 150px; /* default width, but can become smaller and wraps two to lines */
-                min-width: 80px; /* width, but can not become smaller after wrapping */
-            }
+            <!--.my-label {-->
+                <!--width: 150px; /* default width, but can become smaller and wraps two to lines */-->
+                <!--min-width: 80px; /* width, but can not become smaller after wrapping */-->
+            <!--}-->
 
-            .my-label2 {
-                min-width: 12px; /* default width, but can not become smaller, nor wrapping */
-            }
+            <!--.my-label2 {-->
+                <!--min-width: 12px; /* default width, but can not become smaller, nor wrapping */-->
+            <!--}-->
 
-            .my-value {
-                width: 280px; /* default width, but can become smaller and wraps two to lines */
-                min-width: 180px; /* width, but can not become smaller after wrapping */
-            }
+            <!--.my-value {-->
+                <!--width: 280px; /* default width, but can become smaller and wraps two to lines */-->
+                <!--min-width: 180px; /* width, but can not become smaller after wrapping */-->
+            <!--}-->
 
-            .my-input {
-                padding-left: 8px;
-                padding-right: 1px;
-            }
+            <!--.my-input {-->
+                <!--padding-left: 8px;-->
+                <!--padding-right: 1px;-->
+            <!--}-->
 
-            .my-button {
-                width: 25%;
-                height: 8%;
-                position: absolute;
-                right: 0;
-                color: white;
-                background: #1a9fd9;
-                --paper-button-ink-color: #00567B;
-                margin-top: 5px;
-            }
+            <!--.my-button {-->
+                <!--width: 25%;-->
+                <!--height: 8%;-->
+                <!--position: absolute;-->
+                <!--right: 0;-->
+                <!--color: white;-->
+                <!--background: #1a9fd9;-->
+                <!--&#45;&#45;paper-button-ink-color: #00567B;-->
+                <!--margin-top: 5px;-->
+            <!--}-->
 
-            .my-button[disabled] { /* styling als de opslaan button disabled is. */
-                background: lightgray;
-                color: darkgray;
-            }
+            <!--.my-button[disabled] { /* styling als de opslaan button disabled is. */-->
+                <!--background: lightgray;-->
+                <!--color: darkgray;-->
+            <!--}-->
 
-            .klas_input {
-                @apply --layout-horizontal;
-                @apply --layout-flex;
-            }
+            <!--.klas_input {-->
+                <!--@apply &#45;&#45;layout-horizontal;-->
+                <!--@apply &#45;&#45;layout-flex;-->
+            <!--}-->
 
-            .klas_input_veld {
-                width: 75%
-            }
-
-
-        </style>
-        <div class="my-title">Absent Melden</div>
-
-        <div>
-            <paper-dropdown class="my-label" label="Reden"></paper-dropdown>
-
-            <paper-dropdown-menu class="my-label">
-                <paper-listbox slot="dropdown-content" selected="0">
-                    <paper-item role="option">Ziek</paper-item>
-                    <paper-item role="option">Huisarts</paper-item>
-                    <paper-item role="option">Dokter</paper-item>
-                    <paper-item role="option">Overig</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-
-            <paper-input class="my-label"  label="overig" value="{{overig}}"></paper-input>
-        </div>
-
-        <div class="my-input">
-
-            <paper-input label="Begin Datum " autofocus type="date" value="{{begindatum_absentie}}"></paper-input>
-        </div>
-
-        <div class="my-input">
-
-            <paper-input label="Eind Datum " autofocus type="date" value="{{einddatum_absentie}}"></paper-input>
-        </div>
+            <!--.klas_input_veld {-->
+                <!--width: 75%-->
+            <!--}-->
 
 
-        <iron-ajax id="ajax_absentie"
-                   method="POST"
-                   url="/my-absentie"
-                   handle-as="json"
-                   on-response="_opslaan_absentie_response_handler"
-        ></iron-ajax>
+        <!--</style>-->
+        <!--<div class="my-title">Absent Melden</div>-->
+
+        <!--<div>-->
+            <!--<paper-dropdown class="my-label" label="Reden"></paper-dropdown>-->
+
+            <!--<paper-dropdown-menu class="my-label">-->
+                <!--<paper-listbox slot="dropdown-content" selected="0">-->
+                    <!--<paper-item role="option">Ziek</paper-item>-->
+                    <!--<paper-item role="option">Huisarts</paper-item>-->
+                    <!--<paper-item role="option">Dokter</paper-item>-->
+                    <!--<paper-item role="option">Overig</paper-item>-->
+                <!--</paper-listbox>-->
+            <!--</paper-dropdown-menu>-->
+
+            <!--<paper-input class="my-label"  label="overig" value="{{overig}}"></paper-input>-->
+        <!--</div>-->
+
+        <!--<div class="my-input">-->
+
+            <!--<paper-input label="Begin Datum " autofocus type="date" value="{{begindatum_absentie}}"></paper-input>-->
+        <!--</div>-->
+
+        <!--<div class="my-input">-->
+
+            <!--<paper-input label="Eind Datum " autofocus type="date" value="{{einddatum_absentie}}"></paper-input>-->
+        <!--</div>-->
 
 
-    </template>
-
-    <script>
-        (function () {
-            'use strict';
-
-            Polymer({
-                is: 'my-absentie',
-                properties: {
-                    begindatum_absentie: {
-                        type: Date,
-                        notify: true
-                    },
-
-                    einddatum_absentie: {
-                        type: Date,
-                        notify: true
-                    }
+        <!--<iron-ajax id="ajax_absentie"-->
+                   <!--method="POST"-->
+                   <!--url="/my-absentie"-->
+                   <!--handle-as="json"-->
+                   <!--on-response="_opslaan_absentie_response_handler"-->
+        <!--&gt;</iron-ajax>-->
 
 
-                }
+    <!--</template>-->
+
+    <!--<script>-->
+        <!--(function () {-->
+            <!--'use strict';-->
+
+            <!--Polymer({-->
+                <!--is: 'my-absentie',-->
+                <!--properties: {-->
+                    <!--begindatum_absentie: {-->
+                        <!--type: Date,-->
+                        <!--notify: true-->
+                    <!--},-->
+
+                    <!--einddatum_absentie: {-->
+                        <!--type: Date,-->
+                        <!--notify: true-->
+                    <!--}-->
 
 
-            })
-
-        })
-        ();
+                <!--}-->
 
 
-    </script>
+            <!--})-->
 
-</dom-module>
+        <!--})-->
+        <!--();-->
+
+
+    <!--</script>-->
+
+<!--</dom-module>-->

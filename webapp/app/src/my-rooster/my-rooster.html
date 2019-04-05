@@ -1,3 +1,9 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
@@ -16,143 +22,140 @@
             :host {
                 display: block;
             }
+            :host > * {
+                --paper-input-container-focus-color: #1a9fd9; /* kind of blue */
+            }
 
+            span {
+                @apply --paper-font-body1;
+            }
+            .toast-button {
+                text-transform: none;
+                color: white;                           /* white tekst */
+                background: #1a9fd9;                    /* kind of blue */
+                --paper-button-ink-color: #00567B;      /* kind of dark blue */
+            }
             .my-title {
                 font-size: 20px;
                 color: blue;
-                border-bottom: 1px solid red; /*#1a9fd9; */ /* a red line */
-                padding-bottom: 2px; /* space above the border line */
+                border-bottom: 1px solid red;           /* a red line */
+                padding-bottom: 2px;                    /* space above the border line */
             }
-
-            .my-detail {
-                font-size: 12px;
-                margin-bottom: 12px; /* space after detail lines */
+            .voornaam {
+                min-width: 100px;
+                text-align: left;
             }
-
-            .my-input {
-                max-width: 150px;
+            .achternaam {
+                min-width: 100px;
+                text-align: left;
             }
-
-            .my-line {
-                display: flex;
-                allign-items: left;
+            .groepid-header {
+                min-width: 100px;
+                text-align: left;
             }
-
-            .my-label {
-                width: 150px; /* default width, but can become smaller and wraps two to lines */
-                min-width: 80px; /* width, but can not become smaller after wrapping */
+            .groepid{
+                min-width: 100px;
             }
-
-            .my-label2 {
-                min-width: 12px; /* default width, but can not become smaller, nor wrapping */
-            }
-
-            .my-value {
-                width: 280px; /* default width, but can become smaller and wraps two to lines */
-                min-width: 180px; /* width, but can not become smaller after wrapping */
-            }
-
-            .my-input {
-                padding-left: 8px;
-                padding-right: 1px;
-            }
-
             .my-button {
-                width: 25%;
-                height: 8%;
-                position: absolute; right: 0;
-                color: white;
-                background: #1a9fd9;
-                --paper-button-ink-color: #00567B;
-                margin-top: 5px;
+                width: 100%;                        /* full width */
+                color: white;                       /* white tekst */
+                background: #1a9fd9;                /* kind of blue */
+                --paper-button-ink-color: #00567B;  /* kind of dark blue */
+                margin-top: 5px;                    /* enlarge thet default */
+                margin-left: 0px;                   /* reduce the default */
             }
-
-            .my-button[disabled] { /* styling als de opslaan button disabled is. */
-                background: lightgray;
-                color: darkgray;
-            }
-
-            .klas_input {
-              @apply --layout-horizontal;
-              @apply --layout-flex;
-            }
-
-            .klas_input_veld {
-              width: 75%
-            }
-
-
-
         </style>
-        <div class="my-title">Rooster inzien</div>
 
-        <paper-toast id="verkeerde_input" duration="0" text="U heeft geen invoer!">
-            <paper-button on-click="_toast_clicked" class="toast-button">Sluiten</paper-button>
-        </paper-toast>
+        <div class="my-title">Overzicht van medestudenten van [[c_studentID]]</div>
 
-        <div>
-            <paper-item class="klas_input">
-            <paper-input
-                    id="klas_element" class="klas_input_veld" on-keydown="_checkForEnter" label="Klas" value="{{KLAS}}"></paper-input>
-
-            <paper-button id="rooster_button_element"
-                          class="my-button"
-                          on-click="_ophalen_rooster_request_handler"
-
-                          raised>
-                Ophalen
-            </paper-button>
-            </paper-item>
-        </div>
-
-        <br>
-        <br>
-
-        <div>
-            <scheduler-component
-            </scheduler-component>
-        </div>
+        <table>
+            <tr>
+                <th class="voornaam">lessen </th>
+            </tr>
+            <template is="dom-repeat" items="[[_c_rooster]]">
+                <tr>
+                    <td class="naam">[[item]]</td>
+                </tr>
+            </template>
+        </table>
 
 
-        <iron-ajax id="ajax_rooster"
-                   method="POST"
-                   url="/student/rooster/ophalen"
-                   params=""
-                   handle-as="json"
 
-                   on-response="_ophalen_rooster_response_handler"
-        ></iron-ajax>
-
+        <iron-ajax
+                id="ajax_student_rooster_ophalen"
+                method="POST"
+                url="/student/rooster/ophalen"
+                handle-as="json"
+                on-response="_student_rooster_response_handler">
+        </iron-ajax>
 
     </template>
 
     <script>
-        (function () {
+        (function() {
             'use strict';
-
+            /* _xxxx private              : geen external data binding      - geen notify
+               _c_xx private constant     : geen external binding, constant - geen notify
+               c_xx  public constant      : one way external databinding [[c_xx]] - geen notify nodig
+               xxxx  public               : two way external databinding {{xxxx}} - notify nodig
+            */
             Polymer({
                 is: 'my-rooster',
+
                 properties: {
-                    KLAS: {
-                        type: String
+                    c_studentID: {
+                        type: Number,
+                        value: 1590222
+                    },
+                        c_visible: {
+                        type: Boolean,                                      /* true when element is the active visible item */
+                        value: false,
+                        observer: '_initializing',                          /* wordt ook aangeroepen bijwisseling van true naar false.
+                                                                   regel in de functie dat er niets gebeurd
+                                                                   als c_visible false is */
+                    },
+                    c_rol: {
+                        type: String,
+                    },
+                    c_rooster: {
+                        type: Array,
                     }
 
-
-                },
-                events: {
-                    url: '/student/rooster/ophalen',
                 },
 
+                _initializing : function() {
+                    console.log("init init")
+                    if (this.c_visible) {                                 // zodra zichtbaar geworden moet er wat worden gedaan
+                        if (this.c_rol=="student") {
+                            console.log('init')// voor studenten
+                            this._student_rooster_request_handler();    //    haal info op van server
+                        } else {                                            // na handmatige url wijziging zonder login
+                            var lToast = this.$.toast_invalid_aanroep;        // meldt ongeldige aanroep
+                            lToast.open();                                    /* het sluiten van deze error verwijst  */
+                            /* terug naar home page */
+                        }
+                    }
+                },
+
+                _student_rooster_request_handler: function() {
+                    console.log('triggered')
+                    this.$.ajax_student_rooster_ophalen.contentType="application/json";
+                    this.$.ajax_student_rooster_ophalen.body={
+                        "studentID":this.c_studentID
+                    };
+                    this.$.ajax_student_rooster_ophalen.generateRequest();
+                },
+
+                _student_rooster_response_handler: function(request) {
+                    console.log(request.detail.response)
+                    this._c_rooster = request.detail.response;
+                },
 
 
 
-
-
-            })
-
+            });
         })();
-
-
     </script>
+
 
 </dom-module>

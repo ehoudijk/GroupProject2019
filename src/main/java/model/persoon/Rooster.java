@@ -33,6 +33,7 @@ public class Rooster {
     public List<Klas> getKlas() {
         return klassen;
     }
+    
     public String getNaam() {
         return title;
     }

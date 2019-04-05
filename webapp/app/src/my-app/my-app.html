@@ -241,17 +241,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  title="ROOSTER INZIEN"
                  element$="my-rooster">
           <paper-material elevation="1">
-            <my-rooster></my-rooster>
+            <my-rooster c_visible="[[_are_strings_equal(_ar_page, 'rooster_inzien')]]"
+                        c_rol="[[_rol]]"
+                        c_username="[[_username]]"></my-rooster>
           </paper-material>
         </section>
 
-        <section page-name="absent_melden"
-                 title="ABSENT MELDEN"
-                 element$="my-absentie">
-          <paper-material elevation="1">
-            <my-absentie></my-absentie>
-          </paper-material>
-        </section>
+        <!--<section page-name="absent_melden"-->
+                 <!--title="ABSENT MELDEN"-->
+                 <!--element$="my-absentie">-->
+          <!--<paper-material elevation="1">-->
+            <!--<my-absentie></my-absentie>-->
+          <!--</paper-material>-->
+        <!--</section>-->
 
         <section page-name="beter_melden"
                  title="BETER MELDEN"
