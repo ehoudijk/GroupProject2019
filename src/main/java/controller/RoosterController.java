@@ -33,7 +33,7 @@ public class RoosterController implements Handler {
             if (myRooster.getKlas() != null) {
                 for (Klas kla : myRooster.getKlas()) {
                     if(kla.isStudentInKlas(id)) {
-                        goodRoosters.add(myRooster.getNaam());
+                        goodRoosters.add(myRooster.getNaam() + " " + myRooster.getDocenten() + " " + myRooster.getStartDatum());
                     }
                 }
             }
